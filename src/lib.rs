@@ -2,7 +2,7 @@ use inventory::submit;
 
 pub mod solutions;
 
-pub type InputIterator<'a, 'b> = &'a mut dyn Iterator<Item = &'b str>;
+pub type InputIterator<'a> = &'a mut dyn Iterator<Item = String>;
 pub type Handler = fn(InputIterator) -> String;
 pub struct Plugin(pub &'static str, pub Handler);
 

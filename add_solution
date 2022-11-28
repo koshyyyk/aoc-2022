@@ -1,0 +1,12 @@
+#! /bin/bash
+
+day=${1}
+if [[ -z ${day} ]]; then
+    exit 1
+fi
+day="0${day}"
+solution="s${day:(-2)}"
+
+cp src/solutions/s00.rs "src/solutions/${solution}.rs"
+echo "pub mod ${solution};" >> src/solutions.rs
+echo "solution!(${solution});" >> src/lib.rs

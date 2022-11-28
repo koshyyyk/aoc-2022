@@ -1,15 +1,33 @@
 use std::collections::HashMap;
+use std::io;
+use std::io::{BufRead, BufReader};
 
-//use clap::Parser;
+use clap::Parser;
 use itertools::Itertools;
 
 use aoc_2022::{Handler, Plugin};
+
+#[derive(Parser, Debug)]
+struct Args {
+    solution: Option<String>
+}
+
 
 fn main() {
     let solutions = inventory::iter::<Plugin>()
         .map(|p| (p.0, p.1))
         .collect::<HashMap<&str, Handler>>();
-    println!("Solutions found: {}", solutions.keys().join(" "));
-    //let mut param = "1 2 3 4".split_whitespace();
-    //println!("{}", tasks.get("print").unwrap()(& mut param));
+    let handler = match Args::parse() {
+        Args{ solution: Some(sol)} => solutions.get( &sol as &str),
+        _ => None
+    };
+    let res = handler.map_or(format!("Available solutions: {}", solutions.keys().join(" ")),
+                                    |h| {
+                                            let mut i = BufReader::new(io::stdin())
+                                                .lines()
+                                                .flat_map(|l| l.ok());
+                                            h(& mut i)
+                                    }
+    );
+    println!("{}", res);
 }
