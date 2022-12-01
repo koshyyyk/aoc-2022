@@ -3,7 +3,7 @@ use inventory::submit;
 pub mod solutions;
 
 pub type InputIterator<'a> = &'a mut dyn Iterator<Item = String>;
-pub type Handler = fn(InputIterator) -> String;
+pub type Handler = fn(InputIterator) -> (String, String);
 pub struct Plugin(pub &'static str, pub Handler);
 
 inventory::collect!(Plugin);
@@ -18,3 +18,4 @@ macro_rules! solution {
 }
 
 solution!(s00);
+solution!(s01);

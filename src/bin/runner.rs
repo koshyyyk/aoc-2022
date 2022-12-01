@@ -21,7 +21,7 @@ fn main() {
         Args{ solution: Some(sol)} => solutions.get( &sol as &str),
         _ => None
     };
-    let res = handler.map_or(format!("Available solutions: {}", solutions.keys().join(" ")),
+    let res = handler.map_or((format!("Available solutions: {}", solutions.keys().join(" ")), "".to_owned()),
                                     |h| {
                                             let mut i = BufReader::new(io::stdin())
                                                 .lines()
@@ -29,5 +29,5 @@ fn main() {
                                             h(& mut i)
                                     }
     );
-    println!("{}", res);
+    println!("{} {}", res.0, res.1);
 }
