@@ -1,9 +1,9 @@
-use crate::InputIterator;
+use crate::{InputIterator, Ztr};
 
 static TEST_DATA: &str = "";
 
-pub fn solution(i: InputIterator) -> (String, String) {
-    ("--".to_string(), "--".to_string())
+pub fn solution(i: InputIterator) -> (Ztr, Ztr) {
+    ("--".into(), "--".into())
 }
 
 #[test]

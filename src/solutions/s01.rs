@@ -1,6 +1,6 @@
 use std::cmp::Reverse;
 
-use crate::InputIterator;
+use crate::{InputIterator, Ztr};
 
 static TEST_DATA: &str = "1000
 2000
@@ -35,10 +35,10 @@ fn helper(i: InputIterator) -> Box<Vec<usize>> {
     acc
 }
 
-pub fn solution(i: InputIterator) -> (String, String) {
+pub fn solution(i: InputIterator) -> (Ztr, Ztr) {
     let sorted = helper(i);
-    (sorted[0..1].iter().sum::<usize>().to_string(),
-     sorted[0..3].iter().sum::<usize>().to_string())
+    (sorted[0..1].iter().sum::<usize>().to_string().into(),
+     sorted[0..3].iter().sum::<usize>().to_string().into())
 }
 
 #[test]

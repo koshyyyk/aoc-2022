@@ -21,13 +21,13 @@ fn main() {
         Args{ solution: Some(sol)} => solutions.get( &sol as &str),
         _ => None
     };
-    let res = handler.map_or((format!("Available solutions: {}", solutions.keys().join(" ")), "".to_owned()),
-                                    |h| {
-                                            let mut i = BufReader::new(io::stdin())
-                                                .lines()
-                                                .flat_map(|l| l.ok());
-                                            h(& mut i)
-                                    }
-    );
+    let res = handler.map(|h| {
+                                    let mut i = BufReader::new(io::stdin())
+                                        .lines()
+                                        .flat_map(|l| l.ok());
+                                    h(& mut i)
+                            })
+                      .unwrap_or((format!("Available solutions: {}", solutions.keys().join(" ")).into(),
+                                         "".into()));
     println!("{} {}", res.0, res.1);
 }
