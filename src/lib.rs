@@ -3,6 +3,7 @@ use std::io::BufRead;
 use inventory::submit;
 
 pub mod solutions;
+pub mod parsers;
 
 pub type Ztr = Cow<'static, str>;
 pub type InputIterator<'a> = &'a mut dyn Iterator<Item = Ztr>;

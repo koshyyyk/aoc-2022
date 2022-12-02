@@ -1,0 +1,45 @@
+use std::str::{from_utf8, FromStr};
+pub use pom::parser::{self, one_of, Parser};
+use pom::parser::{end, list, sym};
+
+pub fn space() -> Parser<'static, u8, ()> {
+    one_of(b" \t").repeat(0..).discard()
+}
+
+pub fn newline() -> Parser<'static, u8, ()> {
+    one_of(b"\r\n").repeat(0..).discard()
+}
+
+pub fn integer() -> Parser<'static, u8, i32> {
+    let integer = sym(b'-').opt() + one_of(b"123456789") - one_of(b"0123456789").repeat(0..);
+    integer.collect().convert(from_utf8).convert(|s| i32::from_str(&s))
+}
+
+fn itu() -> Parser<'static, u8, (i32, i32)> {
+    let parser = (integer() - space()).repeat(2) - end();
+    parser.map(|v| (v[0], v[1]))
+}
+
+#[test]
+fn tuple() {
+    let output = itu().parse(b"3 4");
+    assert_eq!(output, Ok((3, 4)));
+}
+
+#[test]
+fn two_numbers() {
+    let parser = list(integer(), space()) - end();
+    let output = parser.parse(b"11 22");
+    assert_eq!(output, Ok(vec![11, 22]));
+}
+
+#[test]
+fn molecules() {
+    let input = b"OFSNKKHCBSNKBKFFCVNB
+
+KC -> F
+CO -> S
+FH -> K
+";
+
+}

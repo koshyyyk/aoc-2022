@@ -1,8 +1,56 @@
+use std::str::FromStr;
+use std::cmp::Ordering::{self, *};
 use crate::{InputIterator, Ztr};
+use strum_macros::EnumString;
+use crate::parsers::*;
 
 static TEST_DATA: &str = "A Y
 B X
 C Z";
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq, EnumString)]
+enum RPS {
+    #[strum(serialize = "A")]
+    R,
+    P,
+    S
+}
+
+use RPS::*;
+
+impl PartialOrd for RPS {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(match (self, other) {
+                (s, o) if s == o => Equal,
+                (R, S) | (P, R) | (S, P) => Greater,
+                (_, _) => Less
+        })
+    }
+}
+
+#[test]
+fn rps_ordering() {
+    assert!(R < P);
+    assert!(S < R);
+    assert!(P == P);
+}
+
+#[test]
+fn from_string() {
+    let variant = RPS::from_str("A");
+    assert_eq!(Ok(R), variant);
+}
+
+#[derive(Copy, Clone, PartialEq, Eq, EnumString)]
+enum Outcome {
+    #[strum(serialize = "X")]
+    Loss = 0,
+    #[strum(serialize = "Y")]
+    Draw = 3,
+    #[strum(serialize = "Z")]
+    Win = 6
+}
+
 
 fn rps(round: &[u32]) -> u32 {
     match round {
@@ -33,7 +81,6 @@ fn to_processed(line: &str) -> Vec<u32> {
         .map(|n| if n > 30 { n - 32 } else { n - 9 })
         .collect()
 }
-
 
 fn score_for_line(line: &str) -> u32 {
    rps(&to_processed(line))
