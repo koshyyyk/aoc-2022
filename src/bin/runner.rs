@@ -12,19 +12,19 @@ struct Args {
     solution: Option<String>
 }
 
-
 fn main() {
     let solutions = inventory::iter::<Plugin>()
         .map(|p| (p.0, p.1))
         .collect::<HashMap<&str, Handler>>();
     let handler = match Args::parse() {
-        Args{ solution: Some(sol)} => solutions.get( &sol as &str),
+        Args{ solution: Some(sol) } => solutions.get( &sol as &str),
         _ => None
     };
     let res = handler.map(|h| {
                                     let mut i = BufReader::new(io::stdin())
                                         .lines()
-                                        .flat_map(|l| l.ok());
+                                        .flat_map(|l| l.ok())
+                                        .map(|l| l.into()) ;
                                     h(& mut i)
                             })
                       .unwrap_or((format!("Available solutions: {}", solutions.keys().join(" ")).into(),

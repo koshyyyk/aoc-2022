@@ -43,10 +43,10 @@ pub fn solution(i: InputIterator) -> (Ztr, Ztr) {
 
 #[test]
 fn test1() {
-    assert_eq!(solution(&mut (TEST_DATA.lines().map(|s| s.to_owned()))).0, "24000");
+    assert_eq!(solution(&mut (TEST_DATA.lines().map(|s| s.into()))).0, "24000");
 }
 
 #[test]
 fn test2() {
-    assert_eq!(solution(&mut (TEST_DATA.lines().map(|s| s.to_owned()))).1, "45000");
+    assert_eq!(solution(&mut (TEST_DATA.lines().map(|s| s.into()))).1, "45000");
 }
