@@ -24,3 +24,4 @@ macro_rules! solution {
 solution!(s00);
 solution!(s01);
 solution!(s02);
+solution!(s03);
