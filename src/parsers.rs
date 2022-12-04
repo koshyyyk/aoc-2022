@@ -2,16 +2,17 @@ use std::str::{from_utf8, FromStr};
 pub use pom::parser::{self, one_of, Parser};
 use pom::parser::{end, list, sym};
 
-pub fn space() -> Parser<'static, u8, ()> {
+
+pub fn space<'a>() -> Parser<'a, u8, ()> {
     one_of(b" \t").repeat(0..).discard()
 }
 
-pub fn newline() -> Parser<'static, u8, ()> {
+pub fn newline<'a>() -> Parser<'a, u8, ()> {
     one_of(b"\r\n").repeat(0..).discard()
 }
 
-pub fn integer() -> Parser<'static, u8, i32> {
-    let integer = sym(b'-').opt() + one_of(b"123456789") - one_of(b"0123456789").repeat(0..);
+pub fn integer<'a>() -> Parser<'a, u8, i32> {
+    let integer = one_of(b"123456789") - one_of(b"0123456789").repeat(0..);
     integer.collect().convert(from_utf8).convert(|s| i32::from_str(&s))
 }
 
