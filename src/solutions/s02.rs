@@ -91,7 +91,7 @@ fn move_for_line(line: &str) -> u32 {
 }
 
 fn combine(i: InputIterator, f: fn(&str) -> u32) -> u32 {
-    i.map(|l| f(&l)).fold(0, |s, v| s + v)
+    i.map(|l| f(&l)).sum()
 }
 
 fn p1(i: InputIterator) -> u32 {
