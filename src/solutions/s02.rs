@@ -2,7 +2,6 @@ use std::str::FromStr;
 use std::cmp::Ordering::{self, *};
 use crate::{InputIterator, Ztr};
 use strum_macros::EnumString;
-use crate::parsers::*;
 
 static TEST_DATA: &str = "A Y
 B X
@@ -10,9 +9,11 @@ C Z";
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, EnumString)]
 enum RPS {
-    #[strum(serialize = "A")]
-    R,
+    #[strum(serialize = "A", serialize = "X")]
+    R = 1,
+    #[strum(serialize = "B", serialize = "Y")]
     P,
+    #[strum(serialize = "C", serialize = "Z")]
     S
 }
 
@@ -32,13 +33,16 @@ impl PartialOrd for RPS {
 fn rps_ordering() {
     assert!(R < P);
     assert!(S < R);
-    assert!(P == P);
+    assert_eq!(P, P);
 }
 
 #[test]
 fn from_string() {
-    let variant = RPS::from_str("A");
-    assert_eq!(Ok(R), variant);
+    let r = RPS::from_str("A").unwrap();
+    assert_eq!(R, r);
+    let s = RPS::from_str("Z").unwrap();
+    assert!(r > s);
+    assert_eq!(3, s as i32);
 }
 
 #[derive(Copy, Clone, PartialEq, Eq, EnumString)]
@@ -50,7 +54,6 @@ enum Outcome {
     #[strum(serialize = "Z")]
     Win = 6
 }
-
 
 fn rps(round: &[u32]) -> u32 {
     match round {
