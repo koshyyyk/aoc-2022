@@ -10,3 +10,4 @@ solution="s${day:(-2)}"
 cp src/solutions/s00.rs "src/solutions/${solution}.rs"
 echo "pub mod ${solution};" >> src/solutions.rs
 echo "solution!(${solution});" >> src/lib.rs
+touch "${solution}.txt"

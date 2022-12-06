@@ -1,4 +1,4 @@
-use pom::parser::{list, Parser, sym};
+use pom::parser::{Parser, sym};
 use crate::{InputIterator, Ztr};
 use crate::parsers::integer;
 

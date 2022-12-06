@@ -1,5 +1,4 @@
 use std::borrow::Cow;
-use std::io::BufRead;
 use inventory::submit;
 
 pub mod solutions;
@@ -26,3 +25,4 @@ solution!(s01);
 solution!(s02);
 solution!(s03);
 solution!(s04);
+solution!(s05);
