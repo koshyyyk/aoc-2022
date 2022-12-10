@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 use std::str::FromStr;
-use itertools::Itertools;
+use itertools::{Itertools, zip};
 use crate::{InputIterator, Ztr};
 use regex::Regex::{self};
 
@@ -30,14 +30,10 @@ $ ls
 ";
 
 fn update_sizes(path: &Vec<String>, sizes: &mut HashMap<String, i32>, size: i32) {
-    let mut path_str = String::new();
-    let mut index = 0_usize;
-    loop {
-        *sizes.entry(path_str.clone()).or_insert(0) += size;
-        if index == path.len() {
-            break
-        }
-        path_str = format!("{}/{}", path_str, path[index]);
+    let mut index = 0;
+    while index <= path.len() {
+        let path_str = path.iter().take(index).join("/");
+        *sizes.entry(path_str).or_insert(0) += size;
         index += 1;
     }
 }
@@ -46,7 +42,6 @@ fn modify_path(path: & mut Vec<String>, c: &str, line: usize) {
     match c {
         "/" => {
             path.clear();
-            //path.push("/".to_string());
         },
         ".." => {
             if path.pop().is_none() {
@@ -75,7 +70,6 @@ fn walk_os_tree(i: InputIterator) -> i32 {
         if str.starts_with("$ ls") {
             size = 0;
         }
-        //println!("path: {:?}, size: {}, map: {:?}", &path, size, &sizes);
     }
     update_sizes(&path, &mut sizes, size);
     let total_size = &sizes.get("").map(|v| *v).unwrap_or_default();
