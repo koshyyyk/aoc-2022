@@ -1,4 +1,5 @@
 use std::borrow::Cow;
+
 use inventory::submit;
 
 pub mod solutions;
@@ -6,7 +7,7 @@ pub mod parsers;
 
 pub type Ztr = Cow<'static, str>;
 pub type InputIterator<'a> = &'a mut dyn Iterator<Item = Ztr>;
-pub type Handler = fn(InputIterator) -> (Ztr, Ztr);
+pub type Handler = fn(InputIterator, bool) -> Ztr;
 pub struct Plugin(pub &'static str, pub Handler);
 
 inventory::collect!(Plugin);

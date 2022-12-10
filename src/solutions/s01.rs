@@ -35,18 +35,18 @@ fn helper(i: InputIterator) -> Box<Vec<usize>> {
     acc
 }
 
-pub fn solution(i: InputIterator) -> (Ztr, Ztr) {
+pub fn solution(i: InputIterator, part_two: bool) -> Ztr {
     let sorted = helper(i);
-    (sorted[0..1].iter().sum::<usize>().to_string().into(),
-     sorted[0..3].iter().sum::<usize>().to_string().into())
+    let wut = if part_two { &sorted[0..3] } else { &sorted[0..1] };
+    wut.iter().sum::<usize>().to_string().into()
 }
 
 #[test]
 fn test1() {
-    assert_eq!(solution(&mut (TEST_DATA.lines().map(|s| s.into()))).0, "24000");
+    assert_eq!(solution(&mut (TEST_DATA.lines().map(|s| s.into())), false), "24000");
 }
 
 #[test]
 fn test2() {
-    assert_eq!(solution(&mut (TEST_DATA.lines().map(|s| s.into()))).1, "45000");
+    assert_eq!(solution(&mut (TEST_DATA.lines().map(|s| s.into())), true), "45000");
 }

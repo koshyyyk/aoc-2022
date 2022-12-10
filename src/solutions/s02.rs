@@ -1,7 +1,11 @@
-use std::str::FromStr;
 use std::cmp::Ordering::{self, *};
-use crate::{InputIterator, Ztr};
+use std::str::FromStr;
+
 use strum_macros::EnumString;
+
+use RPS::*;
+
+use crate::{InputIterator, Ztr};
 
 static TEST_DATA: &str = "A Y
 B X
@@ -16,8 +20,6 @@ enum RPS {
     #[strum(serialize = "C", serialize = "Z")]
     S
 }
-
-use RPS::*;
 
 impl PartialOrd for RPS {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
@@ -102,9 +104,12 @@ fn p1(i: InputIterator) -> u32 {
 }
 
 
-pub fn solution(i: InputIterator) -> (Ztr, Ztr) {
-    ("--".into(),
-     combine(i, move_for_line).to_string().into())
+pub fn solution(i: InputIterator, part_two: bool) -> Ztr {
+    (if part_two {
+        combine(i, move_for_line)
+    } else {
+        todo!()
+    }).to_string().into()
 }
 
 #[test]

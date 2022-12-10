@@ -1,5 +1,7 @@
 use std::collections::VecDeque;
+
 use itertools::Itertools;
+
 use crate::{InputIterator, Ztr};
 
 static TEST_DATA: &str = "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw";
@@ -10,7 +12,7 @@ fn find_marker(i: InputIterator, len: usize) -> usize {
      .iter()
      .flat_map(|line| line.chars()
                          .enumerate()
-                         .find(|&(i, c)| {
+                         .find(|&(_, c)| {
                              if buf.iter().unique().count() == len {
                                  true
                              } else {
@@ -26,8 +28,9 @@ fn find_marker(i: InputIterator, len: usize) -> usize {
      .unwrap_or_default()
 }
 
-pub fn solution(i: InputIterator) -> (Ztr, Ztr) {
-    (find_marker(i, 14).to_string().into(), "--".into())
+pub fn solution(i: InputIterator, part_two: bool) -> Ztr {
+    let n = if part_two { 4 } else { 14 };
+    find_marker(i, n).to_string().into()
 }
 
 #[test]

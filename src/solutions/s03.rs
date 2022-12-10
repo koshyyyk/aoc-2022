@@ -71,8 +71,12 @@ fn f2(i: InputIterator) -> i32 {
         .sum()
 }
 
-pub fn solution(i: InputIterator) -> (Ztr, Ztr) {
-    (f2(i).to_string().into(), "--".into())
+pub fn solution(i: InputIterator, part_two: bool) -> Ztr {
+    (if part_two {
+        f2(i)
+    } else {
+        f1(i)
+    }).to_string().into()
 }
 
 #[test]

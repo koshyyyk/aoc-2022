@@ -1,4 +1,5 @@
 use pom::parser::{Parser, sym};
+
 use crate::{InputIterator, Ztr};
 use crate::parsers::integer;
 
@@ -46,8 +47,12 @@ fn f2(i: InputIterator) -> usize {
     i.map(|l| parse_line(l.as_ref())).filter(is_overlap).count()
 }
 
-pub fn solution(i: InputIterator) -> (Ztr, Ztr) {
-    (f2(i).to_string().into(), "--".into())
+pub fn solution(i: InputIterator, part_two: bool) -> Ztr {
+    (if part_two {
+        f2(i)
+    } else {
+        todo!()
+    }).to_string().into()
 }
 
 #[test]

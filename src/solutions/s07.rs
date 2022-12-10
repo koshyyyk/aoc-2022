@@ -1,8 +1,10 @@
 use std::collections::HashMap;
 use std::str::FromStr;
-use itertools::{Itertools, zip};
-use crate::{InputIterator, Ztr};
+
+use itertools::Itertools;
 use regex::Regex::{self};
+
+use crate::{InputIterator, Ztr};
 
 static TEST_DATA: &str = "$ cd /
 $ ls
@@ -79,8 +81,13 @@ fn walk_os_tree(i: InputIterator) -> i32 {
     sizes.iter().map(|e| *e.1).sorted().skip_while(|s| *s < to_free).next().unwrap_or_default()
 }
 
-pub fn solution(i: InputIterator) -> (Ztr, Ztr) {
-    (walk_os_tree(i).to_string().into(), "--".into())
+pub fn solution(i: InputIterator, part_two: bool) -> Ztr {
+    (if part_two {
+        walk_os_tree(i)
+    } else {
+        todo!()
+    }).to_string().into()
+
 }
 
 #[test]

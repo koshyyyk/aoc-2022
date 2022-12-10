@@ -1,4 +1,4 @@
-use pom::parser::{seq};
+use pom::parser::seq;
 
 use crate::{InputIterator, Ztr};
 use crate::parsers::{integer, space};
@@ -81,10 +81,12 @@ fn move_9000(stacks: & mut Vec<Vec<char>>, (mut num, from, to): (i32, i32, i32))
     }
 }
 
-fn f1(i: InputIterator) -> String {
+type Mover = fn(& mut Vec<Vec<char>>, (i32, i32, i32));
+
+fn f1(i: InputIterator, mover: Mover) -> String {
     let (mut stacks, instructions) = parse(i);
     instructions.iter()
-                .for_each(|&(num, from, to)| move_9001(& mut stacks, (num, from - 1, to - 1)));
+                .for_each(|&(num, from, to)| mover(& mut stacks, (num, from - 1, to - 1)));
     stacks.iter()
           .map(|stack| stack.last())
           .flat_map(|opt| opt)
@@ -100,6 +102,11 @@ fn test_move() {
     assert_eq!(Some('D'), stacks[2].pop());
 }
 
-pub fn solution(i: InputIterator) -> (Ztr, Ztr) {
-    (f1(i).into(), "--".into())
+pub fn solution(i: InputIterator, part_two: bool) -> Ztr {
+    let mover = if part_two {
+        move_9001
+    } else {
+        move_9000
+    };
+    f1(i, mover).into()
 }

@@ -1,7 +1,7 @@
 use std::str::{from_utf8, FromStr};
-pub use pom::parser::{self, one_of, Parser};
-use pom::parser::{end, list, sym};
 
+pub use pom::parser::{self, one_of, Parser};
+use pom::parser::{end, list};
 
 pub fn space<'a>() -> Parser<'a, u8, ()> {
     one_of(b" \t").repeat(0..).discard()
@@ -32,15 +32,4 @@ fn two_numbers() {
     let parser = list(integer(), space()) - end();
     let output = parser.parse(b"11 22");
     assert_eq!(output, Ok(vec![11, 22]));
-}
-
-#[test]
-fn molecules() {
-    let input = b"OFSNKKHCBSNKBKFFCVNB
-
-KC -> F
-CO -> S
-FH -> K
-";
-
 }
