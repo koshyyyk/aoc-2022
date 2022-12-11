@@ -29,3 +29,4 @@ solution!(s04);
 solution!(s05);
 solution!(s06);
 solution!(s07);
+solution!(s08);
