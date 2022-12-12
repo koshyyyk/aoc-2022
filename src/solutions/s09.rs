@@ -15,12 +15,21 @@ L 5
 R 2
 ";
 
+static _TEST_DATA2: &str = "R 5
+U 8
+L 8
+D 3
+R 17
+D 10
+L 25
+U 20
+";
+
 type Coord = i32;
 
-#[derive(Default, Copy, Clone, Debug, Eq, PartialEq)]
+#[derive(Debug, Eq, PartialEq)]
 struct State{
-    head: (Coord, Coord),
-    tail: (Coord, Coord),
+    rope: Vec<(Coord, Coord)>
 }
 
 fn mv(&(r, c): &(Coord, Coord), dir: char) -> (Coord, Coord) {
@@ -39,30 +48,36 @@ fn mv(&(r, c): &(Coord, Coord), dir: char) -> (Coord, Coord) {
 
 impl State {
 
-    fn new() -> Self {
-        Default::default()
+    fn new(len: usize) -> Self {
+        State{rope: repeat((0, 0)).take(len).collect()}
     }
 
-    fn distance(&self) -> i32 {
-        max(num::abs(self.head.0 - self.tail.0), num::abs(self.head.1 - self.tail.1))
+    fn head(&mut self) -> &mut (Coord, Coord) {
+        &mut self.rope[0]
     }
 
-    fn diagonal(&self) -> bool {
-         self.head.0 != self.tail.0 && self.head.1 != self.tail.1
+    fn tail(&mut self) -> &mut (Coord, Coord) {
+        let len = self.rope.len();
+        &mut self.rope[len - 1]
     }
 
-    fn step(mut self, dir: char) -> Self {
-        self.head = mv(&self.head, dir);
-        if self.distance() > 1 {
-            if self.diagonal() {
-                let rd = num::signum(self.head.0 - self.tail.0);
-                let cd = num::signum(self.head.1 - self.tail.1);
-                self.tail = (self.tail.0 + rd, self.tail.1 + cd);
-            } else {
-                self.tail = mv(&self.tail, dir);
-            }
+    fn distance(&self, knot: usize) -> i32 {
+        max(num::abs(self.rope[knot].0 - self.rope[knot - 1].0),
+            num::abs(self.rope[knot].1 - self.rope[knot - 1].1))
+    }
+
+    fn adjust_knot(&mut self, knot: usize) {
+        let ahead = knot - 1;
+        if self.distance(knot) > 1 {
+            let rd = num::signum(self.rope[ahead].0 - self.rope[knot].0);
+            let cd = num::signum(self.rope[ahead].1 - self.rope[knot].1);
+            self.rope[knot] = (self.rope[knot].0 + rd, self.rope[knot].1 + cd);
         }
-        self
+    }
+
+    fn step(&mut self, dir: char) {
+        *self.head() = mv(self.head(), dir);
+        (1..self.rope.len()).for_each(|knot| self.adjust_knot(knot));
     }
 
 }
@@ -83,14 +98,18 @@ fn test_read() {
 
 pub fn solution(it: InputIterator, part_two: bool) -> Ztr {
     let mut trace: HashSet<(Coord, Coord)> = HashSet::new();
-    read_input(it).fold(State::new(), |state, dir| {
-        trace.insert(state.tail);
-        state.step(dir)});
-    (if part_two {
-        todo!()
+    let len = if part_two {
+        10
     } else {
-        trace.len() + 1 // off by one, trace.insert before step
-    }).to_string().into()
+        2
+    };
+    let mut state = State::new(len);
+    read_input(it).enumerate().for_each(|(_n, dir)| {
+        state.step(dir);
+        trace.insert(*state.tail());
+        //println!("{:03} {} {:?}", _n, dir, &state.rope);
+    });
+    trace.len().to_string().into()
 }
 
 #[test]
@@ -99,6 +118,11 @@ fn test1() {
 }
 
 #[test]
-fn test2() {
-    assert!(true);
+fn test21() {
+    assert_eq!("1", solution(& mut (_TEST_DATA.lines().map(|s| s.into())), true));
+}
+
+#[test]
+fn test22() {
+    assert_eq!("36", solution(& mut (_TEST_DATA2.lines().map(|s| s.into())), true));
 }
