@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "4.0.27", features = ["derive"] }
+num = "0.4.0"
 itertools = { version = "0.10.5" }
 inventory = "0.3.2"
 pom = "3.2.0"
