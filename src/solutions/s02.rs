@@ -7,7 +7,7 @@ use RPS::*;
 
 use crate::{InputIterator, Ztr};
 
-static TEST_DATA: &str = "A Y
+static _TEST_DATA: &str = "A Y
 B X
 C Z";
 
@@ -121,7 +121,7 @@ fn linescore() {
 
 #[test]
 fn test1() {
-    assert_eq!(15, p1(& mut (TEST_DATA.lines().map(|l| l.into()))));
+    assert_eq!(15, p1(& mut (_TEST_DATA.lines().map(|l| l.into()))));
 }
 
 #[test]
@@ -133,5 +133,5 @@ fn match_score() {
 
 #[test]
 fn test2() {
-    assert_eq!(12, combine(& mut (TEST_DATA.lines().map(|l| l.into())), move_for_line));
+    assert_eq!(12, combine(& mut (_TEST_DATA.lines().map(|l| l.into())), move_for_line));
 }

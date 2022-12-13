@@ -1,12 +1,9 @@
 use std::collections::HashMap;
-use std::fmt::format;
 use std::fs::File;
-use std::io;
 use std::io::{BufRead, BufReader};
 
-use anyhow::{Context, Error, Result};
+use anyhow::{Error, Result};
 use clap::{Parser, ValueEnum};
-use itertools::Itertools;
 
 use aoc_2022::{Handler, Plugin};
 

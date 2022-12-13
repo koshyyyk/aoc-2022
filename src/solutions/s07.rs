@@ -6,7 +6,7 @@ use regex::Regex::{self};
 
 use crate::{InputIterator, Ztr};
 
-static TEST_DATA: &str = "$ cd /
+static _TEST_DATA: &str = "$ cd /
 $ ls
 dir a
 14848514 b.txt
@@ -99,10 +99,10 @@ fn test1() {
 
 #[test]
 fn test2() {
-    assert_eq!(95437, walk_os_tree(& mut (TEST_DATA.lines().map(|s| s.into()))));
+    assert_eq!(95437, walk_os_tree(& mut (_TEST_DATA.lines().map(|s| s.into()))));
 }
 
 #[test]
 fn test3() {
-    assert_eq!(24933642, walk_os_tree(& mut (TEST_DATA.lines().map(|s| s.into()))));
+    assert_eq!(24933642, walk_os_tree(& mut (_TEST_DATA.lines().map(|s| s.into()))));
 }

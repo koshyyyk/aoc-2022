@@ -3,7 +3,7 @@ use pom::parser::seq;
 use crate::{InputIterator, Ztr};
 use crate::parsers::{integer, space};
 
-static TEST_DATA: &str = "    [D]
+static _TEST_DATA: &str = "    [D]
 [N] [C]
 [Z] [M] [P]
  1   2   3
@@ -60,7 +60,7 @@ fn parse(i: InputIterator) -> (Vec<Vec<char>>, Vec<(i32, i32, i32)>) {
 
 #[test]
 fn partial_read() {
-    let (mut stacks, mut instructions) = parse(& mut (TEST_DATA.lines().map(|s| s.into())));
+    let (mut stacks, mut instructions) = parse(& mut (_TEST_DATA.lines().map(|s| s.into())));
     assert_eq!(Some('N'), stacks[0].pop());
     assert_eq!(Some('D'), stacks[1].pop());
     assert_eq!(Some((1, 1, 2)), instructions.pop());
@@ -95,7 +95,7 @@ fn f1(i: InputIterator, mover: Mover) -> String {
 
 #[test]
 fn test_move() {
-    let (mut stacks, instructions) = parse(& mut (TEST_DATA.lines().map(|s| s.into())));
+    let (mut stacks, instructions) = parse(& mut (_TEST_DATA.lines().map(|s| s.into())));
     instructions.iter().for_each(|&(num, from, to)| move_9001(& mut stacks, (num, from - 1, to - 1)));
     assert_eq!(Some('M'), stacks[0].pop());
     assert_eq!(Some('C'), stacks[1].pop());

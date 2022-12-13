@@ -2,7 +2,7 @@ use std::cmp::Reverse;
 
 use crate::{InputIterator, Ztr};
 
-static TEST_DATA: &str = "1000
+static _TEST_DATA: &str = "1000
 2000
 3000
 
@@ -43,10 +43,10 @@ pub fn solution(i: InputIterator, part_two: bool) -> Ztr {
 
 #[test]
 fn test1() {
-    assert_eq!(solution(&mut (TEST_DATA.lines().map(|s| s.into())), false), "24000");
+    assert_eq!(solution(&mut (_TEST_DATA.lines().map(|s| s.into())), false), "24000");
 }
 
 #[test]
 fn test2() {
-    assert_eq!(solution(&mut (TEST_DATA.lines().map(|s| s.into())), true), "45000");
+    assert_eq!(solution(&mut (_TEST_DATA.lines().map(|s| s.into())), true), "45000");
 }

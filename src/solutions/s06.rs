@@ -4,7 +4,7 @@ use itertools::Itertools;
 
 use crate::{InputIterator, Ztr};
 
-static TEST_DATA: &str = "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw";
+static _TEST_DATA: &str = "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw";
 
 fn find_marker(i: InputIterator, len: usize) -> usize {
     let mut buf: VecDeque<char> = VecDeque::new();
@@ -35,10 +35,10 @@ pub fn solution(i: InputIterator, part_two: bool) -> Ztr {
 
 #[test]
 fn test1() {
-    assert_eq!(11, find_marker(& mut (TEST_DATA.lines().map(|s| s.into())), 4));
+    assert_eq!(11, find_marker(& mut (_TEST_DATA.lines().map(|s| s.into())), 4));
 }
 
 #[test]
 fn test2() {
-    assert_eq!(26, find_marker(& mut (TEST_DATA.lines().map(|s| s.into())), 14));
+    assert_eq!(26, find_marker(& mut (_TEST_DATA.lines().map(|s| s.into())), 14));
 }

@@ -2,7 +2,7 @@ use itertools::{Itertools, izip};
 
 use crate::{InputIterator, Ztr};
 
-static TEST_DATA: &str = "vJrwpWtwJgWrhcsFMMfFFhFp
+static _TEST_DATA: &str = "vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
 PmmdzqPrVvPwwTWBwg
 wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
@@ -81,10 +81,10 @@ pub fn solution(i: InputIterator, part_two: bool) -> Ztr {
 
 #[test]
 fn test1() {
-    assert_eq!(157, f1(& mut (TEST_DATA.lines().map(|s| s.into()))));
+    assert_eq!(157, f1(& mut (_TEST_DATA.lines().map(|s| s.into()))));
 }
 
 #[test]
 fn test2() {
-    assert_eq!(70, f2(& mut (TEST_DATA.lines().map(|s| s.into()))));
+    assert_eq!(70, f2(& mut (_TEST_DATA.lines().map(|s| s.into()))));
 }

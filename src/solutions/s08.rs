@@ -1,6 +1,4 @@
 use std::collections::HashSet;
-use std::iter::Rev;
-use std::ops::Range;
 
 use itertools::{Either, Itertools};
 
@@ -80,7 +78,7 @@ pub fn solution(it: InputIterator, part_two: bool) -> Ztr {
     let w = patch[0].len();
     let h = patch.len();
     let res = if part_two {
-        (0..h).cartesian_product((0..w))
+        (0..h).cartesian_product(0..w)
             .map(|(r, c)| score(r, c, patch))
             .max()
             .unwrap_or_default()

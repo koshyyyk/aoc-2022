@@ -3,7 +3,7 @@ use pom::parser::{Parser, sym};
 use crate::{InputIterator, Ztr};
 use crate::parsers::integer;
 
-static TEST_DATA: &str = "2-4,6-8
+static _TEST_DATA: &str = "2-4,6-8
 2-3,4-5
 5-7,7-9
 2-8,3-7
@@ -57,10 +57,10 @@ pub fn solution(i: InputIterator, part_two: bool) -> Ztr {
 
 #[test]
 fn test1() {
-    assert_eq!(2, f1(& mut (TEST_DATA.lines().map(|s| s.into()))));
+    assert_eq!(2, f1(& mut (_TEST_DATA.lines().map(|s| s.into()))));
 }
 
 #[test]
 fn test2() {
-    assert_eq!(4, f2(& mut (TEST_DATA.lines().map(|s| s.into()))));
+    assert_eq!(4, f2(& mut (_TEST_DATA.lines().map(|s| s.into()))));
 }

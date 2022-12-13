@@ -16,11 +16,6 @@ pub fn integer<'a>() -> Parser<'a, u8, i32> {
     integer.collect().convert(from_utf8).convert(|s| i32::from_str(&s))
 }
 
-fn itu() -> Parser<'static, u8, (i32, i32)> {
-    let parser = (integer() - space()).repeat(2) - end();
-    parser.map(|v| (v[0], v[1]))
-}
-
 #[test]
 fn tuple() {
     let output = itu().parse(b"3 4");
