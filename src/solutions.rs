@@ -8,3 +8,4 @@ pub mod s06;
 pub mod s07;
 pub mod s08;
 pub mod s09;
+pub mod s10;
