@@ -1,7 +1,5 @@
 use crate::{InputIterator, Ztr};
 
-static _TEST_DATA: &str = "";
-
 pub fn solution(_: InputIterator, part_two: bool) -> Ztr {
     if part_two {
         todo!()
@@ -10,12 +8,18 @@ pub fn solution(_: InputIterator, part_two: bool) -> Ztr {
     }
 }
 
-#[test]
-fn test1() {
-    assert!(true);
-}
+#[cfg(test)]
+mod tests {
 
-#[test]
-fn test2() {
-    assert!(true);
+    static _TEST_DATA: &str = "";
+
+    #[test]
+    fn test1() {
+        assert!(true);
+    }
+
+    #[test]
+    fn test2() {
+        assert!(true);
+    }
 }
