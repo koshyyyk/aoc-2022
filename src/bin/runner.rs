@@ -34,7 +34,7 @@ fn main() -> Result<()> {
     let file = File::open(format!("{:02}.txt", args.day))?;
     let mut it = BufReader::new(file)
         .lines()
-        .flat_map(|l| l.ok())
+        .filter_map(|l| l.ok())
         .map(|l| l.into()) ;
     let res = handler(& mut it, part == Part::Two);
     //format!("Available solutions: {}", solutions.keys().join(" "))

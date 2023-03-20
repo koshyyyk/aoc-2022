@@ -12,7 +12,7 @@ pub fn newline<'a>() -> Parser<'a, u8, ()> {
 }
 
 pub fn integer<'a>() -> Parser<'a, u8, i32> {
-    let integer = one_of(b"123456789") - one_of(b"0123456789").repeat(0..);
+    let integer = one_of(b"0123456789") - one_of(b"0123456789").repeat(0..);
     integer.collect().convert(from_utf8).convert(|s| i32::from_str(&s))
 }
 

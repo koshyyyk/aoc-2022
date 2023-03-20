@@ -5,6 +5,12 @@ use inventory::submit;
 pub mod solutions;
 pub mod parsers;
 
+#[derive(Debug, Default, Copy, Clone, PartialEq, Eq, Hash)]
+pub struct Coord {
+    row: i32,
+    col: i32
+}
+
 pub type Ztr = Cow<'static, str>;
 pub type InputIterator<'a> = &'a mut dyn Iterator<Item = Ztr>;
 pub type Handler = fn(InputIterator, bool) -> Ztr;
