@@ -45,3 +45,4 @@ solution!(s17);
 solution!(s23);
 solution!(s24);
 solution!(s22);
+solution!(s21);
