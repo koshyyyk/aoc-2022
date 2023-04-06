@@ -1,5 +1,4 @@
 use std::cmp::Ordering::{self, *};
-use std::str::FromStr;
 
 use strum_macros::EnumString;
 
@@ -31,21 +30,6 @@ impl PartialOrd for RPS {
     }
 }
 
-#[test]
-fn rps_ordering() {
-    assert!(R < P);
-    assert!(S < R);
-    assert_eq!(P, P);
-}
-
-#[test]
-fn from_string() {
-    let r = RPS::from_str("A").unwrap();
-    assert_eq!(R, r);
-    let s = RPS::from_str("Z").unwrap();
-    assert!(r > s);
-    assert_eq!(3, s as i32);
-}
 
 #[derive(Copy, Clone, PartialEq, Eq, EnumString)]
 enum Outcome {
@@ -112,26 +96,49 @@ pub fn solution(i: InputIterator, part_two: bool) -> Ztr {
     }).to_string().into()
 }
 
-#[test]
-fn linescore() {
-    assert_eq!(8, score_for_line("A Y"));
-    assert_eq!(1, score_for_line("B X"));
-    assert_eq!(6, score_for_line("C Z"));
-}
+#[cfg(test)]
+mod test {
+    use std::str::FromStr;
 
-#[test]
-fn test1() {
-    assert_eq!(15, p1(& mut (_TEST_DATA.lines().map(|l| l.into()))));
-}
+    use super::*;
 
-#[test]
-fn match_score() {
-    assert_eq!(4, move_for_line("A Y"));
-    assert_eq!(1, move_for_line("B X"));
-    assert_eq!(7, move_for_line("C Z"));
-}
+    #[test]
+    fn rps_ordering() {
+        assert!(R < P);
+        assert!(S < R);
+        assert_eq!(P, P);
+    }
 
-#[test]
-fn test2() {
-    assert_eq!(12, combine(& mut (_TEST_DATA.lines().map(|l| l.into())), move_for_line));
+    #[test]
+    fn from_string() {
+        let r = RPS::from_str("A").unwrap();
+        assert_eq!(R, r);
+        let s = RPS::from_str("Z").unwrap();
+        assert!(r > s);
+        assert_eq!(3, s as i32);
+    }
+
+    #[test]
+    fn linescore() {
+        assert_eq!(8, score_for_line("A Y"));
+        assert_eq!(1, score_for_line("B X"));
+        assert_eq!(6, score_for_line("C Z"));
+    }
+
+    #[test]
+    fn test1() {
+        assert_eq!(15, p1(&mut (_TEST_DATA.lines().map(|l| l.into()))));
+    }
+
+    #[test]
+    fn match_score() {
+        assert_eq!(4, move_for_line("A Y"));
+        assert_eq!(1, move_for_line("B X"));
+        assert_eq!(7, move_for_line("C Z"));
+    }
+
+    #[test]
+    fn test2() {
+        assert_eq!(12, combine(&mut (_TEST_DATA.lines().map(|l| l.into())), move_for_line));
+    }
 }

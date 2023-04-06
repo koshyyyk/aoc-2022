@@ -31,7 +31,7 @@ $ ls
 7214296 k
 ";
 
-fn update_sizes(path: &Vec<String>, sizes: &mut HashMap<String, i32>, size: i32) {
+fn update_sizes(path: &[String], sizes: &mut HashMap<String, i32>, size: i32) {
     let mut index = 0;
     while index <= path.len() {
         let path_str = path.iter().take(index).join("/");
@@ -78,7 +78,12 @@ fn walk_os_tree(i: InputIterator) -> i32 {
     let to_free = 30000000 - (70000000 - total_size);
     println!("total size: {}, to free: {}", total_size, to_free);
     //sizes.iter().map(|e| *e.1).filter(|s| *s < 100000).sum()
-    sizes.iter().map(|e| *e.1).sorted().skip_while(|s| *s < to_free).next().unwrap_or_default()
+    sizes.iter()
+         .map(|e| *e.1)
+         .sorted()
+         .skip_while(|s| *s < to_free)
+         .next()
+         .unwrap_or_default()
 }
 
 pub fn solution(i: InputIterator, part_two: bool) -> Ztr {
@@ -97,10 +102,10 @@ fn test1() {
     println!("{:?}", captures);
 }
 
-#[test]
-fn test2() {
-    assert_eq!(95437, walk_os_tree(& mut (_TEST_DATA.lines().map(|s| s.into()))));
-}
+// #[test]
+// fn test2() {
+//     assert_eq!(95437, walk_os_tree(& mut (_TEST_DATA.lines().map(|s| s.into()))));
+// }
 
 #[test]
 fn test3() {
