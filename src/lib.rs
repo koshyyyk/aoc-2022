@@ -38,6 +38,7 @@ solution!(s07);
 solution!(s08);
 solution!(s09);
 solution!(s10);
+solution!(s11);
 solution!(s12);
 solution!(s14);
 solution!(s18);
